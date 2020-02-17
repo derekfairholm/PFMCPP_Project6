@@ -59,19 +59,19 @@ struct T
     int value;
     std::string name;
     
-    T(int v, const char* name) //1 . I'm wondering about casting from char* to std::string here? It only shows the firs character in the console
+    T(int v, const char* name)    //1 . I'm wondering about casting from char* to std::string here? It only shows the firs character in the console
     {
         value = v;    //2
-        this->name = *name; //3
+        this->name = *name;    //3
     }
 };
 
-struct structOne    //4
+struct StructOne    //4
 {
     T* compare(T* a, T* b)    //5
     {
-        if( a->value < b->value ) return a;
-        if( a->value > b->value ) return b;
+        if(a->value < b->value) return a;
+        if(a->value > b->value) return b;
         return nullptr;
     }
 };
@@ -79,12 +79,12 @@ struct structOne    //4
 struct U
 {
     float floatOne { 0 }, floatTwo { 0 };
-    float memberFunction( float* updatedValue )      //12
+    float memberFunction(float* updatedValue)    //12
     {
         std::cout << "U's floatOne value: " << floatOne << std::endl;
         floatOne = *updatedValue;
         std::cout << "U's floatOne updated value: " << floatOne << std::endl;
-        while( std::abs(floatTwo - floatOne) > 0.001f )
+        while(std::abs(floatTwo - floatOne) > 0.001f)
         {
             floatTwo += 0.001f;
         }
@@ -94,14 +94,14 @@ struct U
     }
 };
 
-struct structTwo
+struct StructTwo
 {
-    static float staticFunctionA(U* that, float* updatedValue )        //10
+    static float staticFunctionA(U* that, float* updatedValue)    //10
     {
         std::cout << "U's floatOne value: " << that->floatOne << std::endl;
         that->floatOne = *updatedValue;
         std::cout << "U's floatOne updated value: " << that->floatOne << std::endl;
-        while( std::abs(that->floatTwo - that->floatOne) > 0.001f )
+        while( std::abs(that->floatTwo - that->floatOne) > 0.001f)
         {
             that->floatTwo += 0.001f;
         }
@@ -112,20 +112,22 @@ struct structTwo
         
 int main()
 {
-    T t1( 102.9f, "T1" );                                            //6
-    T t2( 6.f, "T2" );                                             //6
+    T t1(102.9f, "T1");    //6
+    T t2(6.f, "T2");    //6
     
-    structOne f;                                            //7
-    auto* smaller = f.compare( &t1, &t2 );  //8
-    if( smaller != nullptr ){ std::cout << "the smaller one is << " <<  smaller->name << std::endl; } //9
+    structOne f;    //7
+    auto* smaller = f.compare( &t1, &t2 );    //8
+    if(smaller != nullptr)
+    { 
+        std::cout << "the smaller one is << " <<  smaller->name << std::endl;    //9
+    }
 
-    
     U u1;
     float updatedValue = 5.f;
-    std::cout << "[static func] u1's multiplied values: " << structTwo::staticFunctionA( &u1, &updatedValue ) << std::endl;                  //11
+    std::cout << "[static func] u1's multiplied values: " << structTwo::staticFunctionA(&u1, &updatedValue) << std::endl;    //11
     
     U u2;
-    std::cout << "[member func] u2's multiplied values: " << u2.memberFunction( &updatedValue ) << std::endl;
+    std::cout << "[member func] u2's multiplied values: " << u2.memberFunction(&updatedValue) << std::endl;
 }
 
         
