@@ -117,8 +117,8 @@ struct StructTwo
         
 int main()
 {
-    T t1(102.9f, "T1");    //6
-    T t2(6.f, "T2");    //6
+    T t1(102, "T1");    //6
+    T t2(6, "T2");    //6
     
     StructOne f;    //7
     auto* smaller = f.compare( &t1, &t2 );    //8
