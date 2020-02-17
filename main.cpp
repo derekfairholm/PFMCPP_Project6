@@ -93,6 +93,8 @@ struct U
             std::cout << "U's floatTwo updated value: " << floatTwo << std::endl;
             return floatTwo * floatOne;
         }
+
+        return 0;
     }
 };
 
@@ -100,7 +102,7 @@ struct StructTwo
 {
     static float staticFunctionA(U* that, float* updatedValue)    //10
     {
-        if(updatedValue != nullptr)
+        if(updatedValue != nullptr && that != nullptr)
         {
             std::cout << "U's floatOne value: " << that->floatOne << std::endl;
             that->floatOne = *updatedValue;
@@ -112,6 +114,8 @@ struct StructTwo
             std::cout << "U's floatTwo updated value: " << that->floatTwo << std::endl;
             return that->floatTwo * that->floatOne;
         }
+
+        return 0;
     }
 };
         
