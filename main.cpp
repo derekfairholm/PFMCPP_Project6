@@ -49,14 +49,14 @@ struct U
     float memberFunction(const float& updatedValue)    //12
     {
         std::cout << "U's floatOne value: " << floatOne << std::endl;
-            floatOne = updatedValue;
-            std::cout << "U's floatOne updated value: " << floatOne << std::endl;
-            while(std::abs(floatTwo - floatOne) > 0.001f)
-            {
-                floatTwo += 0.001f;
-            }   
-            std::cout << "U's floatTwo updated value: " << floatTwo << std::endl;
-            return floatTwo * floatOne;
+        floatOne = updatedValue;
+        std::cout << "U's floatOne updated value: " << floatOne << std::endl;
+        while(std::abs(floatTwo - floatOne) > 0.001f)
+        {
+            floatTwo += 0.001f;
+        }   
+        std::cout << "U's floatTwo updated value: " << floatTwo << std::endl;
+        return floatTwo * floatOne;
     }
 };
 
@@ -65,14 +65,14 @@ struct StructTwo
     static float staticFunctionA(U& that, const float& updatedValue)    //10
     {
         std::cout << "U's floatOne value: " << that.floatOne << std::endl;
-            that.floatOne = updatedValue;
-            std::cout << "U's floatOne updated value: " << that.floatOne << std::endl;
-            while( std::abs(that.floatTwo - that.floatOne) > 0.001f)
-            {
-                that.floatTwo += 0.001f;
-            }
-            std::cout << "U's floatTwo updated value: " << that.floatTwo << std::endl;
-            return that.floatTwo * that.floatOne;
+        that.floatOne = updatedValue;
+        std::cout << "U's floatOne updated value: " << that.floatOne << std::endl;
+        while( std::abs(that.floatTwo - that.floatOne) > 0.001f)
+        {
+            that.floatTwo += 0.001f;
+        }
+        std::cout << "U's floatTwo updated value: " << that.floatTwo << std::endl;
+        return that.floatTwo * that.floatOne;
     }
 };
         
