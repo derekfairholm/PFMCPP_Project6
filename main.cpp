@@ -35,14 +35,10 @@ struct T
 
 struct StructOne    //4
 {
-    T* compare(T* a, T* b)    //5
+    T* compare(T& a, T& b) const //5
     {
-        if(a != nullptr && b != nullptr)
-        {
-            if(a->value < b->value) return a;
-            if(a->value > b->value) return b;
-        }
-
+        if(a.value < b.value) return &a;
+        if(a.value > b.value) return &b;
         return nullptr;
     }
 };
@@ -50,12 +46,10 @@ struct StructOne    //4
 struct U
 {
     float floatOne { 0 }, floatTwo { 0 };
-    float memberFunction(float* updatedValue)    //12 Here and in <staticFunctionA> it seems like I would need to return a nullptr if <updatedValue> turns out to be a nullptr? Otherwise as the consloe puts it I might "reach the end of non-void function"?
+    float memberFunction(const float& updatedValue)    //12
     {
-        if(updatedValue != nullptr)
-        {
-            std::cout << "U's floatOne value: " << floatOne << std::endl;
-            floatOne = *updatedValue;
+        std::cout << "U's floatOne value: " << floatOne << std::endl;
+            floatOne = updatedValue;
             std::cout << "U's floatOne updated value: " << floatOne << std::endl;
             while(std::abs(floatTwo - floatOne) > 0.001f)
             {
@@ -63,30 +57,22 @@ struct U
             }   
             std::cout << "U's floatTwo updated value: " << floatTwo << std::endl;
             return floatTwo * floatOne;
-        }
-
-        return 0;
     }
 };
 
 struct StructTwo
 {
-    static float staticFunctionA(U* that, float* updatedValue)    //10
+    static float staticFunctionA(U& that, const float& updatedValue)    //10
     {
-        if(updatedValue != nullptr && that != nullptr)
-        {
-            std::cout << "U's floatOne value: " << that->floatOne << std::endl;
-            that->floatOne = *updatedValue;
-            std::cout << "U's floatOne updated value: " << that->floatOne << std::endl;
-            while( std::abs(that->floatTwo - that->floatOne) > 0.001f)
+        std::cout << "U's floatOne value: " << that.floatOne << std::endl;
+            that.floatOne = updatedValue;
+            std::cout << "U's floatOne updated value: " << that.floatOne << std::endl;
+            while( std::abs(that.floatTwo - that.floatOne) > 0.001f)
             {
-                that->floatTwo += 0.001f;
+                that.floatTwo += 0.001f;
             }
-            std::cout << "U's floatTwo updated value: " << that->floatTwo << std::endl;
-            return that->floatTwo * that->floatOne;
-        }
-
-        return 0;
+            std::cout << "U's floatTwo updated value: " << that.floatTwo << std::endl;
+            return that.floatTwo * that.floatOne;
     }
 };
         
@@ -96,18 +82,18 @@ int main()
     T t2(6, "T2");    //6
     
     StructOne f;    //7
-    auto* smaller = f.compare( &t1, &t2 );    //8
+    auto* smaller = f.compare( t1, t2 );    //8
     if(smaller != nullptr)
     { 
         std::cout << "the smaller one is << " <<  smaller->name << std::endl;    //9
     }
 
     U u1;
-    float updatedValue = 5.f;
-    std::cout << "[static func] u1's multiplied values: " << StructTwo::staticFunctionA(&u1, &updatedValue) << std::endl;    //11
+    const float updatedValue = 5.f;
+    std::cout << "[static func] u1's multiplied values: " << StructTwo::staticFunctionA(u1, updatedValue) << std::endl;    //11
     
     U u2;
-    std::cout << "[member func] u2's multiplied values: " << u2.memberFunction(&updatedValue) << std::endl;
+    std::cout << "[member func] u2's multiplied values: " << u2.memberFunction(updatedValue) << std::endl;
 }
 
         
